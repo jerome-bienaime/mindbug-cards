@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f5f109dc-498d-4a2d-bb31-c28d1f05bac8",
+  "id": "2a902be4-5493-4ca1-ad40-24517c4270d0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "app_cards": {
@@ -77,7 +77,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "app_keywords": {
       "name": "app_keywords",
@@ -100,7 +101,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "app_keywordsToCards": {
       "name": "app_keywordsToCards",
@@ -130,7 +132,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "app_triggers": {
       "name": "app_triggers",
@@ -153,7 +156,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
     "app_triggersToCards": {
       "name": "app_triggersToCards",
@@ -183,9 +187,11 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     }
   },
+  "views": {},
   "enums": {},
   "_meta": {
     "schemas": {},
