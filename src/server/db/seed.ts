@@ -90,7 +90,7 @@ export async function main(db: any) {
       return value === true;
     });
     if (!hasKeyword) {
-      console.log(
+      console.info(
         `\t+ card with ${creature.name}(${
           cardInserted.id
         }) has no keyword, affecting keyword id ${rawId} to active: ${!hasKeyword}`
@@ -124,7 +124,7 @@ export async function main(db: any) {
       return value === true;
     });
     if (!hasTrigger) {
-      console.log(
+      console.info(
         `\t+ card with ${creature.name}(${
           cardInserted.id
         }) has no effect, affecting trigger id ${rawId} to active: ${!hasTrigger}`
@@ -136,7 +136,7 @@ export async function main(db: any) {
       active: !hasTrigger,
     });
 
-    console.log(
+    console.info(
       `[${count}/${creatures.length}] Inserted creature: ${creature.name} from ${creature.pack}`
     );
 
@@ -144,7 +144,7 @@ export async function main(db: any) {
   }
   const endSeed = new Date().getTime();
 
-  console.log(`${(endSeed - startSeed) / 1000} seconds`);
+  console.info(`${(endSeed - startSeed) / 1000} seconds`);
 }
 
 main(db);
