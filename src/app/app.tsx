@@ -16,6 +16,12 @@ export function App({ cards }: { cards: Card[] }) {
     merge(cards,"all");
   }, [merge, cards]);
 
+  useEffect(() => {
+    if (localStorage.getItem("chakra-ui-color-mode") === "light") {
+      localStorage.setItem("chakra-ui-color-mode", "dark");
+    }
+  }, [])
+
   return (
     <main>
       <Box display="flex" my="3" justifyContent={"center"}>
