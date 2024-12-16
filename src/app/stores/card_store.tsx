@@ -8,6 +8,7 @@ interface CardState {
     pack: string[];
     keyword: string[];
     trigger: string[];
+    search: string;
   };
   data: { cards: any[] };
   cards: any[];
@@ -17,6 +18,7 @@ interface CardState {
     pack: any[];
     keyword: any[];
     trigger: any[];
+    search: any[];
   };
   filters: string[];
   merge: (cards: any, filterName?: string) => void;
@@ -49,6 +51,7 @@ const useCardStore = create<CardState>((set) => ({
     pack: packs,
     keyword: keywords,
     trigger: triggers,
+    search: "",
   },
   data: { cards: [] },
   filters: [],
@@ -59,6 +62,7 @@ const useCardStore = create<CardState>((set) => ({
     pack: [],
     keyword: [],
     trigger: [],
+    search: [],
   },
 
   merge: (cards: any, filterName: string = "all") =>
@@ -86,19 +90,10 @@ const useCardStore = create<CardState>((set) => ({
           if (value.length === 0) {
             return acc;
           }
-          // if (key === "all") {
-          //   return acc;
-          // }
-          console.log({ key });
-          console.log("value.length", value.length);
-          console.log("acc.length", acc.length);
           const intersect = intersectionBy(acc, value, "uuid");
-          console.log("intersect.length", intersect.length);
           return intersect;
         }, state.data.cards);
       }
-
-      console.log({ result });
 
       return {
         ...state,

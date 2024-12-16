@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { lte, and, gte, eq, inArray, count, sql } from "drizzle-orm";
+import { lte, and, gte, eq, inArray, like, or } from "drizzle-orm";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import {
@@ -92,5 +92,21 @@ export const cardRouter = createTRPCRouter({
         results.map((result) => result.cards),
         "uuid"
       );
+    }),
+  search: publicProcedure
+    .input(z.object({ query: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const query = ctx.db
+        .select()
+        .from(cards)
+        .where(
+          or(
+            like(cards.name, `%${input.query}%`),
+            like(cards.ability, `%${input.query}%`)
+          )
+        );
+
+      const results = await query.all();
+      return results;
     }),
 });
