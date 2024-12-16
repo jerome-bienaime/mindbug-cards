@@ -37,7 +37,7 @@ export function PowerRangeSlider() {
   const markers = Array.from({ length: 10 }, (_, index) => index + 1);
 
   return (
-    <Box px="2" pb="4" width="250px">
+    <Box px="2" pb="4">
       <Box textAlign={"center"} h={8}>
         <Text fontSize="lg" as="b" color="pink.200">
           Power

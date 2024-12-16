@@ -33,7 +33,16 @@ export function App({ cards }: { cards: any }) {
         </Box>
       </Box>
       <FilterBar />
-      <Grid templateColumns="repeat(12, 1fr)" gap={1} mx={1}>
+      <Grid
+        templateColumns={{
+          base: "repeat(2, 1fr)",
+          md: "repeat(4, 1fr)",
+          lg: "repeat(8, 1fr)",
+          "2xl": "repeat(12, 1fr)",
+        }}
+        gap={1}
+        mx={1}
+      >
         {cardStore.map((card: any) => {
           const re = /\s+/g;
           const cardImg = card.name!.replace(re, "_");
