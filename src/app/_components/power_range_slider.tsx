@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { api } from "~/trpc/react";
 import { useCardStore } from "../stores/card_store";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export function PowerRangeSlider() {
   const sliderValue = useCardStore((state) => state.options.power);
@@ -45,7 +45,6 @@ export function PowerRangeSlider() {
       </Box>
 
       <RangeSlider
-        aria-label={["min", "max"]}
         step={1}
         defaultValue={[1, 10]}
         min={1}

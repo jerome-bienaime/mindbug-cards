@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { int, sqliteTableCreator, text } from "drizzle-orm/sqlite-core";
-
+import  { type InferModel } from 'drizzle-orm'
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
  * database instance for multiple projects.
@@ -32,6 +32,7 @@ export const cards = createTable("cards", {
   evolution: int("evolution", { mode: "boolean" }).default(false),
   evolved: int("evolved", { mode: "boolean" }).default(false),
 });
+export type Card = InferModel<typeof cards>;
 
 export const keywordsToCards = createTable("keywordsToCards", {
   keywordId: int("keywordId", { mode: "number" }).notNull(),

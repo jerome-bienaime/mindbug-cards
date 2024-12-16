@@ -1,5 +1,5 @@
 import { InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { api } from "~/trpc/react";
 import { useCardStore } from "../stores/card_store";

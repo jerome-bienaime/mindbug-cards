@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Select, Text } from '@chakra-ui/react';
-import { api } from '~/trpc/react';
-import { useCardStore } from '../stores/card_store';
-import { useEffect } from 'react';
+import { Box, Select, Text } from "@chakra-ui/react";
+import { api } from "~/trpc/react";
+import { useCardStore } from "../stores/card_store";
+import { useEffect } from "react";
 
 export function PoolSelect() {
   const value = useCardStore((state) => state.options.pool);
@@ -22,8 +22,7 @@ export function PoolSelect() {
     }
   }, [cardQuery.isSuccess, cardQuery.data, merge]);
 
-  function handleOnSelect(event: any) {
-    console.log("event.target.value", event.target.value);
+  function handleOnSelect(event: React.ChangeEvent<HTMLSelectElement>) {
     setValue(event.target.value);
   }
 

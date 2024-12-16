@@ -1,30 +1,30 @@
 "use client";
-import { uniq } from 'lodash';
-import React, { useEffect } from 'react';
-import { api } from '~/trpc/react';
+import { uniq } from "lodash";
+import React, { useEffect } from "react";
+import { api } from "~/trpc/react";
 
-import { triggers, useCardStore } from '../stores/card_store';
-import { Select } from './select';
+import { triggers, useCardStore } from "../stores/card_store";
+import { Select } from "./select";
 
 export function TriggerSelect() {
   const selected = useCardStore((state) => state.options.trigger);
   const merge = useCardStore((state) => state.merge);
   const [choice, setChoice] = React.useState<Set<string>>(new Set([]));
 
-  const cardQuery = api.card.getTriggers.useQuery(selected)
+  const cardQuery = api.card.getTriggers.useQuery(selected);
 
   useEffect(() => {
     if (cardQuery.data) {
-      merge(cardQuery.data, "trigger")
+      merge(cardQuery.data, "trigger");
     }
-  }, [cardQuery.isSuccess, cardQuery.data, merge])
+  }, [cardQuery.isSuccess, cardQuery.data, merge]);
 
   const setSelected = (selection: string) =>
     useCardStore.setState((state) => ({
       ...state,
       options: {
         ...state.options,
-        trigger: uniq([...state.options.trigger, selection]) as string[],
+        trigger: uniq([...state.options.trigger, selection]),
       },
     }));
   const removeSelected = (selection: string) =>
@@ -42,7 +42,7 @@ export function TriggerSelect() {
     }
     setChoice(
       (choice: Set<string>) =>
-        new Set(Array.from(choice).filter((s) => s !== selected))
+        new Set(Array.from(choice).filter((s) => s !== selected)),
     );
     setSelected(selected);
   }

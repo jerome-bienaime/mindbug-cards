@@ -60,14 +60,14 @@ export const cardRouter = createTRPCRouter({
         .innerJoin(keywordsToCards, eq(keywordsToCards.cardId, cards.id))
         .innerJoin(keywords, eq(keywords.id, keywordsToCards.keywordId))
         .where(
-          and(eq(keywordsToCards.active, true), inArray(keywords.name, input))
+          and(eq(keywordsToCards.active, true), inArray(keywords.name, input)),
         );
 
       const results = await query.all();
 
       return uniqBy(
         results.map((result) => result.cards),
-        "uuid"
+        "uuid",
       );
     }),
   getTriggers: publicProcedure
@@ -83,14 +83,14 @@ export const cardRouter = createTRPCRouter({
         .innerJoin(triggersToCards, eq(triggersToCards.cardId, cards.id))
         .innerJoin(triggers, eq(triggers.id, triggersToCards.triggerId))
         .where(
-          and(eq(triggersToCards.active, true), inArray(triggers.name, input))
+          and(eq(triggersToCards.active, true), inArray(triggers.name, input)),
         );
 
       const results = await query.all();
 
       return uniqBy(
         results.map((result) => result.cards),
-        "uuid"
+        "uuid",
       );
     }),
   search: publicProcedure
@@ -102,8 +102,8 @@ export const cardRouter = createTRPCRouter({
         .where(
           or(
             like(cards.name, `%${input.query}%`),
-            like(cards.ability, `%${input.query}%`)
-          )
+            like(cards.ability, `%${input.query}%`),
+          ),
         );
 
       const results = await query.all();

@@ -4,7 +4,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 import { Provider } from "~/app/providers/ChakraProvider";
 import { ColorModeScript } from "@chakra-ui/react";
-import {config} from "./theme";
+import { config } from "./theme";
 
 export const metadata: Metadata = {
   title: "Mindbug cards",

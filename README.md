@@ -29,5 +29,5 @@ npm run dev # localhost:3000 by default
 
 ## Credits
 
-+ Thanks to [ryanascherr/mindbug-deck](https://github.com/ryanascherr/mindbug-deck) for bringing
-cards and creatures
+- Thanks to [ryanascherr/mindbug-deck](https://github.com/ryanascherr/mindbug-deck) for bringing
+  cards and creatures

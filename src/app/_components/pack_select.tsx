@@ -1,10 +1,10 @@
 "use client";
-import { uniq } from 'lodash';
-import React, { useEffect } from 'react';
-import { api } from '~/trpc/react';
+import { uniq } from "lodash";
+import React, { useEffect } from "react";
+import { api } from "~/trpc/react";
 
-import { packs, useCardStore } from '../stores/card_store';
-import { Select } from './select';
+import { packs, useCardStore } from "../stores/card_store";
+import { Select } from "./select";
 
 export function PackSelect() {
   const selected = useCardStore((state) => state.options.pack);
@@ -24,7 +24,7 @@ export function PackSelect() {
       ...state,
       options: {
         ...state.options,
-        pack: uniq([...state.options.pack, selection]) as string[],
+        pack: uniq([...state.options.pack, selection]),
       },
     }));
   const removeSelected = (selection: string) =>
@@ -42,7 +42,7 @@ export function PackSelect() {
     }
     setChoice(
       (choice: Set<string>) =>
-        new Set(Array.from(choice).filter((s) => s !== selected))
+        new Set(Array.from(choice).filter((s) => s !== selected)),
     );
     setSelected(selected);
   }

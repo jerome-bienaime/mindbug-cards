@@ -1,7 +1,8 @@
-import { intersectionBy, uniq, uniqBy, isEqual } from "lodash";
+import { intersectionBy, uniq } from "lodash";
 import { create } from "zustand";
+import { type Card } from "~/server/db/schema";
 
-interface CardState {
+export interface CardState {
   options: {
     power: [number, number];
     pool: string;
@@ -10,18 +11,18 @@ interface CardState {
     trigger: string[];
     search: string;
   };
-  data: { cards: any[] };
-  cards: any[];
+  data: { cards: Card[] };
+  cards: Card[];
   filterCards: {
-    power: any[];
-    pool: any[];
-    pack: any[];
-    keyword: any[];
-    trigger: any[];
-    search: any[];
+    power: Card[];
+    pool: Card[];
+    pack: Card[];
+    keyword: Card[];
+    trigger: Card[];
+    search: Card[];
   };
   filters: string[];
-  merge: (cards: any, filterName?: string) => void;
+  merge: (cards: Card[], filterName: string) => void;
 }
 
 export const packs = [
@@ -65,14 +66,14 @@ const useCardStore = create<CardState>((set) => ({
     search: [],
   },
 
-  merge: (cards: any, filterName: string = "all") =>
-    set((state: any) => {
+  merge: (cards: Card[], filterName = "all") =>
+    set((state: CardState) => {
       const currentFilters: CardState["filters"] = uniq(
-        [...state.filters, filterName].filter(Boolean)
+        [...state.filters, filterName].filter(Boolean),
       );
       const currentCards: CardState["filterCards"] = Object.assign(
         state.filterCards,
-        { [filterName]: cards }
+        { [filterName]: cards },
       );
 
       if (state.data.cards.length === 0) {
@@ -81,18 +82,21 @@ const useCardStore = create<CardState>((set) => ({
 
       const currentCardsEntries = Object.entries(currentCards);
       const isSameLength = currentCardsEntries.every(
-        ([_, value]) => value.length === state.data.cards.length
+        ([_, value]) => value.length === state.data.cards.length,
       );
 
-      let result = state.data.cards;
+      let result: Card[] = state.data.cards;
       if (!isSameLength) {
-        result = currentCardsEntries.reduce((acc, [key, value]) => {
-          if (value.length === 0) {
-            return acc;
-          }
-          const intersect = intersectionBy(acc, value, "uuid");
-          return intersect;
-        }, state.data.cards);
+        result = currentCardsEntries.reduce(
+          (acc: Card[], [_, value]: [string, Card[]]): Card[] => {
+            if (value.length === 0) {
+              return acc;
+            }
+            const intersect = intersectionBy(acc, value, "uuid");
+            return intersect;
+          },
+          state.data.cards,
+        );
       }
 
       return {
@@ -100,7 +104,7 @@ const useCardStore = create<CardState>((set) => ({
         cards: result,
         filterCards: currentCards,
         filters: currentFilters,
-      };
+      } as CardState;
     }),
 }));
 

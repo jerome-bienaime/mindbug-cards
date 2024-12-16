@@ -2,19 +2,19 @@
 
 import { Box, Grid, GridItem, Image } from "@chakra-ui/react";
 import { FilterBar } from "./_components/filter_bar";
-import _ from "lodash";
-import { useCardStore } from "./stores/card_store";
+import { type CardState, useCardStore } from "./stores/card_store";
 import { useEffect } from "react";
 import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
+import { type Card } from "~/server/db/schema";
 
-export function App({ cards }: { cards: any }) {
+export function App({ cards }: { cards: Card[] }) {
   const merge = useCardStore((state) => state.merge);
-  const cardStore = useCardStore((state) => state.cards);
+  const cardStore: Card[] = useCardStore((state: CardState): Card[] => state.cards) ;
 
   useEffect(() => {
-    merge(cards);
-  }, [merge]);
+    merge(cards,"all");
+  }, [merge, cards]);
 
   return (
     <main>
@@ -43,9 +43,9 @@ export function App({ cards }: { cards: any }) {
         gap={1}
         mx={1}
       >
-        {cardStore.map((card: any) => {
+        {cardStore.map((card: Card) => {
           const re = /\s+/g;
-          const cardImg = card.name!.replace(re, "_");
+          const cardImg: string = card.name!.replace(re, "_");
           return (
             <GridItem colSpan={2} key={card.id}>
               <Image

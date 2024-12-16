@@ -6,7 +6,6 @@ import { keywords, useCardStore } from "../stores/card_store";
 import { uniq } from "lodash";
 import { api } from "~/trpc/react";
 
-
 export function KeywordSelect() {
   const selected = useCardStore((state) => state.options.keyword);
   const merge = useCardStore((state) => state.merge);
@@ -24,10 +23,10 @@ export function KeywordSelect() {
       ...state,
       options: {
         ...state.options,
-        keyword: uniq([...state.options.keyword, selection]) as string[],
+        keyword: uniq([...state.options.keyword, selection]),
       },
     }));
-  }
+  };
   const removeSelected = (selection: string) =>
     useCardStore.setState((state) => ({
       ...state,
@@ -35,7 +34,7 @@ export function KeywordSelect() {
         ...state.options,
         keyword: state.options.keyword.filter((s) => s !== selection),
       },
-  }))
+    }));
   function handleSelect(selected: string) {
     if (selected.length === 0) {
       console.warn(`selected is empty, skipping`);
@@ -43,9 +42,9 @@ export function KeywordSelect() {
     }
     setChoice(
       (choice: Set<string>) =>
-        new Set(Array.from(choice).filter((s) => s !== selected))
+        new Set(Array.from(choice).filter((s) => s !== selected)),
     );
-    setSelected(selected)
+    setSelected(selected);
   }
   function handleRemove(selected: string) {
     removeSelected(selected);

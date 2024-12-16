@@ -3,6 +3,7 @@ import * as fs from "fs";
 import path from "path";
 import { db } from "./index";
 
+/* eslint-disable  */
 export async function main(db: any) {
   const { data: creatures } = JSON.parse(
     fs.readFileSync(path.join("src", "server", "db", "creatures.json"), "utf-8")
@@ -33,7 +34,7 @@ export async function main(db: any) {
         .insert(schema.keywords)
         .values(keyword)
         .returning({ id: schema.keywords.id });
-      return { ...keyword, id: insertedKeyword.id };
+      return { ...keyword, id: insertedKeyword!.id };
     })
   );
 
@@ -44,7 +45,7 @@ export async function main(db: any) {
         .insert(schema.triggers)
         .values(trigger)
         .returning({ id: schema.triggers.id });
-      return { ...trigger, id: insertedTrigger.id };
+      return { ...trigger, id: insertedTrigger!.id };
     })
   );
 
@@ -74,7 +75,7 @@ export async function main(db: any) {
         const keywordId = keywordIds.find((k) => k.name === keyword)?.id;
         if (keywordId) {
           await db.insert(schema.keywordsToCards).values({
-            cardId: cardInserted.id,
+            cardId: cardInserted!.id,
             keywordId,
             active: Boolean(value),
           });
@@ -92,12 +93,12 @@ export async function main(db: any) {
     if (!hasKeyword) {
       console.info(
         `\t+ card with ${creature.name}(${
-          cardInserted.id
+          cardInserted!.id
         }) has no keyword, affecting keyword id ${rawId} to active: ${!hasKeyword}`
       );
     }
     await db.insert(schema.keywordsToCards).values({
-      cardId: cardInserted.id,
+      cardId: cardInserted!.id,
       keywordId: rawId,
       active: !hasKeyword,
     });
@@ -108,7 +109,7 @@ export async function main(db: any) {
         const triggerId = triggerIds.find((t) => t.name === trigger)?.id;
         if (triggerId) {
           await db.insert(schema.triggersToCards).values({
-            cardId: cardInserted.id,
+            cardId: cardInserted!.id,
             triggerId,
             active: Boolean(value),
           });
@@ -126,12 +127,12 @@ export async function main(db: any) {
     if (!hasTrigger) {
       console.info(
         `\t+ card with ${creature.name}(${
-          cardInserted.id
+          cardInserted!.id
         }) has no effect, affecting trigger id ${rawId} to active: ${!hasTrigger}`
       );
     }
     await db.insert(schema.triggersToCards).values({
-      cardId: cardInserted.id,
+      cardId: cardInserted!.id,
       triggerId: noneId,
       active: !hasTrigger,
     });
@@ -147,4 +148,4 @@ export async function main(db: any) {
   console.info(`${(endSeed - startSeed) / 1000} seconds`);
 }
 
-main(db);
+main(db).then(console.info).catch(console.error);
