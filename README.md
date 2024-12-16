@@ -14,17 +14,28 @@ npm i
 
 ## Database
 
-Using [Drizzle](https://orm.drizzle.team/) as orm, configured with [sqlite3](https://www.sqlite.org/)
+Using [Drizzle](https://orm.drizzle.team/) as orm, 
+configured with [turso](https://turso.tech/).
+
+You will need a turso database configured.
 
 ```bash
 # create tables, and run seed
-npm run db:generate && npm run db:push && npm run db:seed
+npm run db:generate && npm run db:migrate && npm run db:seed
 ```
 
 ## Development
 
 ```bash
 npm run dev # localhost:3000 by default
+```
+
+## Build
+
+```bash
+npm run lint && npm run build
+# start built server with
+npm start
 ```
 
 ## Credits
